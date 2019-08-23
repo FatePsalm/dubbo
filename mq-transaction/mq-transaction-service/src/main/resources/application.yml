@@ -1,14 +1,14 @@
 spring:
 #MQ配置信息
   activemq:
-    broker-url: tcp://192.168.186.130:61616
+    broker-url: tcp://192.168.116.128:61616
     user: admin
     password: admin
   jms:
     pub-sub-domain: false      # false = queue    true =  topic
 #数据库连接池
   datasource:
-    url: jdbc:mysql://192.168.186.130:3306/mq-transaction?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://192.168.116.128:3306/mq-transaction?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
     username: root
     password: Zet5la6f08lnSuW9s8z2mEKnE4f+FSkWfnb868WZ1qW5adcLd9pnzUnUD/oBRNcYcVQFjbJwq9zobBgrBjYluw==
     publickey: MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAMTokHNbC3Q9XLZaoJM/6cBAwkDAbeILUCLabSGR1D1a8omgnSEUzVhtSTFQSRNv+BrB4WIoRW4l4uA4WFAdR78CAwEAAQ==
@@ -46,13 +46,13 @@ spring:
     redis1:
       # redis1
       database: 0
-      host: 192.168.186.130
+      host: 192.168.116.128
       port: 6379
       password: 123456
     # redis2
     redis2:
       database: 1
-      host: 192.168.186.130
+      host: 192.168.116.128
       port: 6380
       password: 123456
     timeout: 30000
@@ -66,7 +66,7 @@ server:
   port: 8082
 #zk配置项
 zookeeper:
-  zkAddress: 192.168.186.130:2181
+  zkAddress: 192.168.116.128:2181
 mybatis-plus:
   mapper-locations: classpath:mybatis/mapper/*.xml
   # 队列名称

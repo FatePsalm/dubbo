@@ -11,6 +11,7 @@ import com.solace.transactioncommon.service.TransactionMessageService;
 import com.solace.transactioncommon.utils.PublicConfigUtil;
 import com.solace.transactioncommon.utils.StringUtil;
 import org.apache.dubbo.config.annotation.Service;
+import org.apache.dubbo.rpc.RpcContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.core.MessageCreator;
@@ -21,12 +22,29 @@ import javax.jms.Message;
 import javax.jms.Session;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 @Component
 @Service
 public class TransactionMessageServiceImpl extends ServiceImpl<TransactionMessageMapper, TransactionMessage>  implements TransactionMessageService {
     @Autowired
     private JmsTemplate notifyJmsTemplate;
+
+    @Override
+    public CompletableFuture<String> sayHello(String name) {
+        //int i = 1 / 0;
+        RpcContext savedContext = RpcContext.getContext();
+        // 建议为supplyAsync提供自定义线程池，避免使用JDK公用线程池
+        return CompletableFuture.supplyAsync(() -> {
+            System.out.println("***********************"+savedContext.getAttachment("consumer-key1"));
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            return "async response from provider.";
+        });
+    }
 
     public int saveMessageWaitingConfirm(TransactionMessage message) {
 
@@ -47,6 +65,7 @@ public class TransactionMessageServiceImpl extends ServiceImpl<TransactionMessag
 
 
     public void confirmAndSendMessage(String messageId) {
+        int i = 1 / 0;
         final TransactionMessage message = getMessageByMessageId(messageId);
         if (message == null) {
             throw new MessageBizException(MessageBizException.SAVA_MESSAGE_IS_NULL, "根据消息id查找的消息为空");

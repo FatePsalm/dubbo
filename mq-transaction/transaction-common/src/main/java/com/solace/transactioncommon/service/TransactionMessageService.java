@@ -4,7 +4,10 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.solace.transactioncommon.entity.TransactionMessage;
 import com.solace.transactioncommon.exceptions.MessageBizException;
 
+import java.util.concurrent.CompletableFuture;
+
 public interface TransactionMessageService extends IService<TransactionMessage> {
+    CompletableFuture<String> sayHello(String name);
 
     /**
      * 预存储消息.

@@ -1,7 +1,7 @@
 spring:
 #数据库连接池
   datasource:
-    url: jdbc:mysql://192.168.186.130:3306/mq-transaction?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://192.168.116.128:3306/mq-transaction?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
     username: root
     password: Zet5la6f08lnSuW9s8z2mEKnE4f+FSkWfnb868WZ1qW5adcLd9pnzUnUD/oBRNcYcVQFjbJwq9zobBgrBjYluw==
     publickey: MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAMTokHNbC3Q9XLZaoJM/6cBAwkDAbeILUCLabSGR1D1a8omgnSEUzVhtSTFQSRNv+BrB4WIoRW4l4uA4WFAdR78CAwEAAQ==
@@ -39,6 +39,6 @@ server:
   port: 8084
 #zk配置项
 zookeeper:
-  zkAddress: 192.168.186.130:2181
+  zkAddress: 192.168.116.128:2181
 mybatis-plus:
   mapper-locations: classpath:mybatis/mapper/*.xml

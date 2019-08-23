@@ -1,6 +1,5 @@
 package com.solace.user.service.impl;
 
-import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.solace.transactioncommon.entity.TransactionMessage;
@@ -10,12 +9,15 @@ import com.solace.transactioncommon.service.TransactionMessageService;
 import com.solace.transactioncommon.service.UserService;
 import com.solace.transactioncommon.utils.StringUtil;
 import com.solace.user.mapper.UserMapper;
+import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * @author CG
@@ -23,8 +25,9 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
-    @Reference
+   @Reference(timeout = 10000)
     private TransactionMessageService transactionMessageService;
+
     @Override
     @Transactional
     public void saveUser(User user) {
@@ -35,13 +38,18 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         transactionMessageService.saveMessageWaitingConfirm(transactionMessage);
         //执行业务逻辑
         //提交
-        transactionMessageService.confirmAndSendMessage(transactionMessage.getMessageId());
+        //transactionMessageService.confirmAndSendMessage(transactionMessage.getMessageId());
+        // 调用直接返回CompletableFuture
+         transactionMessageService.sayHello("async call request");
+// 早于结果输出
+        System.out.println("Executed before response return.");
     }
-    private TransactionMessage sealRpTransactionMessage(User user){
-       //封装User信息
+
+    private TransactionMessage sealRpTransactionMessage(User user) {
+        //封装User信息
         String messageId = StringUtil.get32UUID();
         String messageBody = JSONObject.toJSONString(user);
-        TransactionMessage rpTransactionMessage = new TransactionMessage( messageId, messageBody, NotifyDestinationNameEnum.ACCOUNTING_NOTIFY.name());
+        TransactionMessage rpTransactionMessage = new TransactionMessage(messageId, messageBody, NotifyDestinationNameEnum.ACCOUNTING_NOTIFY.name());
         return rpTransactionMessage;
     }
 }

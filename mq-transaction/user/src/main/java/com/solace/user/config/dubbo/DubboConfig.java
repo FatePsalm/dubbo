@@ -1,23 +1,19 @@
 package com.solace.user.config.dubbo;
 
 
-
-import com.solace.transactioncommon.service.TransactionMessageService;
-import org.apache.dubbo.config.*;
-import org.apache.dubbo.config.annotation.Reference;
+import org.apache.dubbo.config.ApplicationConfig;
+import org.apache.dubbo.config.ConsumerConfig;
+import org.apache.dubbo.config.ProviderConfig;
+import org.apache.dubbo.config.RegistryConfig;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Configuration
 public class DubboConfig {
     @Value("${zookeeper.zkAddress}")
     private String zkAddress;
-   /* @Reference
-    private TransactionMessageService transactionMessageService;*/
+
     @Bean
     public ApplicationConfig applicationConfig() {
         ApplicationConfig applicationConfig = new ApplicationConfig();
@@ -32,8 +28,8 @@ public class DubboConfig {
         registryConfig.setAddress(zkAddress);
         return registryConfig;
     }
-    //@Bean
-   /* public ServiceConfig<TransactionMessageService> transactionMessageServiceConfig() {
+    /*@Bean
+    public ServiceConfig<TransactionMessageService> transactionMessageServiceConfig(TransactionMessageService transactionMessageService) {
         ServiceConfig<TransactionMessageService> serviceConfig = new ServiceConfig<>();
         serviceConfig.setInterface(TransactionMessageService.class);
         serviceConfig.setRef(transactionMessageService);
@@ -42,7 +38,7 @@ public class DubboConfig {
         MethodConfig methodConfig = new MethodConfig();
         methodConfig.setName("confirmAndSendMessage");
         methodConfig.setAsync(true);
-        methodConfig.setReturn(false);
+        //methodConfig.setReturn(false);
 
         //将method的设置关联到service配置中
         List<MethodConfig> methods = new ArrayList<>();

@@ -17,6 +17,8 @@
     <modules>
         <module>transaction-common</module>
         <module>mq-transaction-service</module>
+        <module>user</module>
+        <module>money</module>
     </modules>
     <properties>
         <java.version>1.8</java.version>
