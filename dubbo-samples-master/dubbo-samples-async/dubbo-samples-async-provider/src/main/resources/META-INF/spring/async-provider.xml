@@ -27,7 +27,7 @@
 
     <dubbo:application name="async-provider"/>
 
-    <dubbo:registry address="zookeeper://192.168.116.128:2181"/>
+    <dubbo:registry address="zookeeper://192.168.186.130:2181"/>
 
     <dubbo:protocol name="dubbo" port="20880"/>
 

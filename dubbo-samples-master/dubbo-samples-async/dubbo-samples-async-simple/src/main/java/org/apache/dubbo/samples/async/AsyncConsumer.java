@@ -35,7 +35,7 @@ public class AsyncConsumer {
         AsyncService asyncService = context.getBean("asyncService", AsyncService.class);
         asyncService.sayHello("world");
 
-        CompletableFuture<String> helloFuture = RpcContext.getContext().getCompletableFuture();
+       /* CompletableFuture<String> helloFuture = RpcContext.getContext().getCompletableFuture();
         helloFuture.whenComplete((retValue, exception) -> {
             if (exception == null) {
                 System.out.println("return value: " + retValue);
@@ -45,7 +45,7 @@ public class AsyncConsumer {
         });
 
         CompletableFuture<String> f = RpcContext.getContext().asyncCall(() -> asyncService.sayHello("async call request"));
-        System.out.println("async call returned: " + f.get());
+        System.out.println("async call returned: " + f.get());*/
 
 
         RpcContext.getContext().asyncCall(() -> {

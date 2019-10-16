@@ -27,7 +27,7 @@
 
     <dubbo:application name="async-consumer"/>
 
-    <dubbo:registry address="zookeeper://192.168.116.128:2181"/>
+    <dubbo:registry address="zookeeper://192.168.186.130:2181"/>
 
     <dubbo:reference id="asyncService" interface="org.apache.dubbo.samples.async.api.AsyncService" timeout="10000">
         <dubbo:method name="sayHello" async="true" return="false"/>
